@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta content="width=device-width, intial-scale=1" name="viewport">
+<title>Responsive Example</title>
+<link href="styles/rwd.css" rel="stylesheet"/>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <h2 class="logo">Logo</h2>
+    <div class="search-container">
+      <div class="search-box">
+        <label class="search-input">
+          <input type="text" placeholder="Search">
+        </label>
+        <button type="button" class="search-btn">Go</button>
+      </div>
+      <ul class="more-search">
+        <li><a href="javascript:;" id="moreSearch">More Search Tools</a>
+          <ul >
+            <li><a href="javascript:;">Search by Elements</a></li>
+            <li><a href="javascript:;">Search by Structure</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+    <div class="right-side">
+      <ul>
+        <li><a href="javascript:;" id="HomeSearh">Betty Venus</a>  
+        <ul>
+            <li><a href="javascript:;">Elements</a></li>
+            <li><a href="javascript:;">Structure</a></li>
+          </ul>
+         </li>
+      </ul>
+    </div>
+    <a class="menu" href="#" id="homeMenu"></a>
+    <nav class="nav-menu">    
+    	<ul>
+            <li><a href="#" class="first-child">Home</a></li>
+            <li><a href="#">Contact us</a></li>
+      </ul>      
+    </nav>
+    <div class="clear"></div>
+  </header>
+  <section class="main-container">
+  <div class="space">
+    <article class="article">
+      <p class="breadclum">Landolt-Bosiment - Group VI Physical Chemistry</p>
+      <h1 class="title">2 Pure Liquids: References</h1>
+      <h2 class="sub-title">Abstract</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi in ipsum nibh. Nulla vel felis mollis, pulvinar arcu at, porta quam. Suspendisse a congue turpis, a rhoncus ipsum. Suspendisse placerat massa vel augue lobortis, eget aliquam ex pharetra. Sed luctus quam eleifend hendrerit tincidunt. Vestibulum eu eleifend leo. Sed egestas quis quam sit amet viverra. Donec feugiat urna metus. Pellentesque eget aliquet arcu.</p>
+      
+      <a href="#" class="download-btn"><img src="imgs/download_btn.jpg" border="0"></a>
+    </article>
+    <aside><a href="#" id="download-pdf"><img src="imgs/download_pdf.jpg"></a></aside>
+    </div>
+    <div class="clear"></div>
+  </section>
+  <div class="clear"></div>
+</div>
+
+<div class="overlay-container"></div>
+<div id="downloadPDF" class="modalBox">
+<p class="label-head">Confirmation</p>
+<p class="note">Do You Want To Download The PDF?</p>
+<div class="btn-box">
+<input type="Submit" value="Yes" class="btn" id="agree-btn" />
+<input type="reset" value="Cancel" class="btn" id="Cancel-btn"/>
+</div>
+</div>
+<script src="scripts/jquery.min.js"></script>
+<script>
+$(document).ready(function(e){
+	var popup='';	
+	$(document.body).on('click', 'li>a', function(){		
+		if($(this).next().length!=0){
+		popup = $(this).attr('id');
+		$(this).next().slideUp();		
+			if($(this).next().is(":hidden")){
+				$(this).next().slideDown();
+			}
+		}
+	});
+	$('#homeMenu').on('click', function(){	
+		$(this).addClass('menu-hover');	
+		$('.nav-menu').slideToggle('fast', function(){
+			$('#homeMenu').toggleClass('menu-hover', $(this).is(':visible'));
+		});
+		
+	});
+	
+	
+	$(".download-btn, #download-pdf").on('click', function(){
+		$('.overlay-container, #downloadPDF').show();
+	});
+	
+	$("#Cancel-btn").on('click', function(){
+		$('.overlay-container, #downloadPDF').fadeOut();
+	});
+	
+	$("#agree-btn").on('click', function(){
+		$('.overlay-container, #downloadPDF').fadeOut();
+		window.open('','_blank');
+	});
+	
+	
+//hide if open or on click others all;
+$('*').on('click', function(e){		 
+	var $target = $(e.target);
+	var container = $("#"+popup);
+	 if (!container.is(e.target) && container.next().has(e.target).length != 1){	
+		$(container).next().slideUp();		
+	}
+});
+
+	$('body').on('click', function(e){	
+		if($(window).width()<=768){
+	  		if(!$('.menu').is(e.target) && $('.nav-menu').has(e.target).length != 1){
+				$('.nav-menu').slideUp();
+				$('#homeMenu').removeClass('menu-hover');	
+			}
+		}
+	});
+});
+
+
+
+</script>
+</body>
+</html>
+
+
